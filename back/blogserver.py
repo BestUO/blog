@@ -1,7 +1,7 @@
 from flask import Flask
-
 from src.routefun import CustomRoute
 import src.myglobal as Global
+from gevent import pywsgi
 
 app = Flask(__name__)
 
@@ -13,5 +13,8 @@ if __name__ == "__main__":
 
  
     # tmp = Global.dbmanager.execute_query("select * from test",True)
+    
+    server = pywsgi.WSGIServer((Global.config["http_server"]["ip"],Global.config["http_server"]["port"]), app)
+    server.serve_forever()
 
-    app.run(Global.config["http_server"]["ip"],Global.config["http_server"]["port"])
+    # app.run(Global.config["http_server"]["ip"],Global.config["http_server"]["port"])
