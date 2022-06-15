@@ -54,9 +54,9 @@ class CustomRoute:
         pageSize = int(param["pageSize"])
 
         if tag_id=="":
-            sql = "select id,title,`desc`,tag,create_time from article limit " + str(pageNum*pageSize) + "," + str(pageSize)
+            sql = "select id,title,`desc`,tag,create_time from article order by id desc limit " + str(pageNum*pageSize) + "," + str(pageSize)
         else:
-            sql = "select id,title,`desc`,tag,create_time from article where FIND_IN_SET(\"" + str(tag_id) + "\",tag) limit " + str(pageNum*pageSize) + "," + str(pageSize)
+            sql = "select id,title,`desc`,tag,create_time from article where FIND_IN_SET(\"" + str(tag_id) + "\",tag) order by id desc limit " + str(pageNum*pageSize) + "," + str(pageSize)
 
         articles = Global.dbmanager.execute_query(sql,True)
         ArticlesData["count"] = len(articles)
