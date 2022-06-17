@@ -1,7 +1,7 @@
 <template>
     <div class="main-body" style="width: 100%;">
         <div class="main-list">
-            3455
+            技术交流加qq群: 386380284
         </div>
         <LoadEnd v-if="true"></LoadEnd>
     </div>
