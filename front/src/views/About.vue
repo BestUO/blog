@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div>
+    <div class="main-body" style="width: 100%;">
+        <div class="main-list">
             3455
         </div>
         <LoadEnd v-if="true"></LoadEnd>
@@ -15,3 +15,9 @@ export default {
   },
 }
 </script>
+
+<style lang="less">
+.main-list {
+    min-height:calc(100% - 54px) !important;
+}
+</style>

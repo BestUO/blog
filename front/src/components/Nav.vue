@@ -143,7 +143,7 @@
           >
             <router-link to="/message">留 言</router-link>
           </div>
-          <div
+         <div
             @click="handleClickMenu('/about')"
             class="item"
           >
@@ -290,7 +290,7 @@ export default defineComponent({
           name: "关于",
         },
       ] as Array<NavListItem>,
-      activeIndex: "0",
+      activeIndex: "2",
       enterSlideUp: false,
       leaveSlideDown: false,
       isShow: false,
@@ -301,7 +301,7 @@ export default defineComponent({
       for (let i = 0; i < state.list.length; i++) {
         const l: NavListItem = state.list[i];
         if (l.path === val.path) {
-          state.activeIndex = i + 1 + "";
+          state.activeIndex = l.index;
           state.title = l.name;
           break;
         }

@@ -1,11 +1,10 @@
 <template>
-  <div class="left clearfix">
+  <div class="left clearfix main-body">
     <h3
-      v-if="state.params.tag_id"
       class="left-title"
     >{{state.tag_name}} 相关的文章：</h3>
     <ul
-      class="articles-list"
+      class="articles-list main-list"
       id="list"
     >
       <transition-group name="el-fade-in">
@@ -45,7 +44,7 @@
       </transition-group>
     </ul>
     <!--<LoadingCustom v-if="state.isLoading"></LoadingCustom>-->
-    <LoadEnd v-if="state.isLoadEnd"></LoadEnd>
+    <LoadEnd v-if="state.isLoadEnd" style='width: calc(100% + 350px);'></LoadEnd>
   </div>
 </template>
 
@@ -124,7 +123,7 @@ export default defineComponent({
       href:
         import.meta.env.MODE === "development"
           ? "http://localhost:3001/articleDetail?article_id="
-          : "https://biaochenxuying.cn/articleDetail?article_id="
+          : "http://www.aiecent.com/articleDetail?article_id="
     });
 
     const formatTime = (value: string | Date): string => {
@@ -233,10 +232,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .left {
   .articles-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    min-height: calc(100% - 143px);
     .title {
       color: #333;
       margin: 7px 0 4px;

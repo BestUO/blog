@@ -18,8 +18,8 @@ export default defineComponent({
 <style scoped>
 .footer {
   text-align: center;
-  //padding: 20px;
-  //font-weight: bold;
+  /*padding: 20px;
+  font-weight: bold;*/
   position:absolute;
   right:0;
   bottom:0;
