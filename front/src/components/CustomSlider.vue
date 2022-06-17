@@ -6,10 +6,11 @@
       alt=""
     >
     <div class="title">Boray</div>
-    <div class="right-content">
-      <!-- <div class="item">
-        <div class="num">123</div>粉丝
-      </div>
+    <div class="right-content"></div>
+    <div class="right-content"> 
+   
+      <div class="item" onclick="location.href='https://github.com/BestUO';"  style="cursor:pointer;">https://github.com/BestUO</div>
+      <!--
       <div class="item">
         <div class="num">123</div>文章
       </div>
