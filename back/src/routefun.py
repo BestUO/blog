@@ -99,9 +99,11 @@ class CustomRoute:
                 "origin":0,"state":1,"tags":[],"title":"title","update_time":""}
 
 
-        sql = "select title,create_time,file_name from article where id=" + param["id"]
+        sql = "select title,`desc`,create_time,file_name,keywords from article where id=" + param["id"]
         results = Global.dbmanager.execute_query(sql,True)
         TagsData["title"] = str(results[0]["title"])
+        TagsData["desc"] = str(results[0]["desc"])
+        TagsData["keyword"] = results[0]["keywords"].split(",")
         TagsData["create_time"] = str(results[0]["create_time"])
         with open(Global.config["blog_dir"] + results[0]["file_name"],'r', encoding='utf-8') as f:
             html = f.read()
