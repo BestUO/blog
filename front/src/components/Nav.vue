@@ -24,16 +24,40 @@
               mode="horizontal"
               @select="handleSelect"
             >
-              <el-menuItem
+                
+              <el-menu-item :route="state.list[0].path" :index="state.list[0].index" :key="state.list[0].index">{{state.list[0].name}}</el-menu-item>
+
+              <el-dropdown style="height:100%" :class="['el-menu-item', {'is-active': $route.name === state.list[1].key ||  $route.name === state.list[2].key }]">
+                <span class="el-dropdown-link ">
+                    水电费
+                    <!--
+                <el-icon class="el-icon--right">
+                    <arrow-down />
+                </el-icon>
+                -->
+                </span>
+                <template #dropdown>
+                <el-dropdown-menu>
+                    <el-dropdown-item><router-link :to="state.list[1].path">{{state.list[1].name}}</router-link></el-dropdown-item>
+                    <el-dropdown-item><router-link :to="state.list[2].path">{{state.list[2].name}}</router-link></el-dropdown-item>
+                </el-dropdown-menu>
+                </template>
+              </el-dropdown>
+  
+              <el-menu-item :route="state.list[3].path" :index="state.list[3].index" :key="state.list[3].index">{{state.list[3].name}}</el-menu-item>
+              <!--
+              <el-menu-item
                 :route="l.path"
                 :index="l.index"
                 v-for="l in state.list"
                 :key="l.index"
               >
                 {{l.name}}
-              </el-menuItem>
+              </el-menu-item>
+              -->
             </el-menu>
           </el-col>
+          <!-- 
           <el-col
             v-if="userInfo._id"
             :span="5"
@@ -61,7 +85,7 @@
               </el-dropdown>
             </div>
           </el-col>
-          <!-- <el-col
+          <el-col
             v-else
             :span="4"
           >
@@ -90,8 +114,7 @@
           <router-link to="/">
             <img
               class="logo fl"
-              src="../assets/logo.jpg"
-              alt="BiaoChenXuYing"
+              src="../assets/userLogo.jpeg"
             >
           </router-link>
         </div>
@@ -136,13 +159,13 @@
             class="item"
           >
             <router-link to="/timeline">历 程</router-link>
-          </div> -->
+          </div>
           <div
             @click="handleClickMenu('/message')"
             class="item"
           >
             <router-link to="/message">留 言</router-link>
-          </div>
+          </div> -->
          <div
             @click="handleClickMenu('/about')"
             class="item"
@@ -263,6 +286,19 @@ export default defineComponent({
           index: "2",
           path: "/articles",
           name: "文章",
+          key:"articles",
+        },
+        {
+          index: "3",
+          path: "/about",
+          name: "sub ai painting",
+          key:"about",
+        },
+        {
+          index: "4",
+          path: "/about",
+          name: "sub ai painting2",
+          key:"about",
         },
         // {
         //   index: "3",
@@ -497,6 +533,13 @@ export default defineComponent({
       width: 50px;
       border-radius: 50%;
     }
+  }
+  .el-dropdown-link {
+    display: inline-block;
+    border-bottom: 2px solid #fff;
+  }
+  .el-dropdown.is-active .el-dropdown-link {
+    color: rgb(64, 158, 255);
   }
 }
 
