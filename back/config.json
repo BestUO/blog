@@ -2,6 +2,7 @@
     "http_server":
     {
         "ip":"0.0.0.0",
+        "ext-ip":"127.0.0.1",
         "port":9999
     },
     "mysql":
@@ -12,6 +13,12 @@
         "passwd": "p@ssw0rd_UO",
         "database": "blog",
         "charset": "utf8"
+    },
+    "redis":
+    {
+        "host": "127.0.0.1",
+        "port": 10000,
+        "passwd": "123456"
     },
     "blog_dir":"D:\\"
 }
