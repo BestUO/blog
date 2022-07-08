@@ -27,7 +27,10 @@ export const urls: any = {
   getTimeAxisDetail: "getTimeAxisDetail",
 
   getProjectList: "getProjectList",
-  getProjectDetail: "getProjectDetail"
+  getProjectDetail: "getProjectDetail",
+
+  uploadfile:"/uploadfile",
+  styletransfer:"styletransfer"
 };
 
 export default urls;

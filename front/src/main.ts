@@ -25,7 +25,12 @@ import {
     ElCard,
     ElTag,
     ElIcon,
-    ElCollapseTransition
+    ElCollapseTransition,
+    ElCarousel,
+    ElCarouselItem,
+    ElUpload,
+    ElImageViewer,
+    ElImage
 } from 'element-plus';
 
 const app = createApp(App)
@@ -50,6 +55,11 @@ app.component(ElCard.name, ElCard);
 app.component(ElTag.name, ElTag);
 app.component(ElIcon.name, ElIcon);
 app.component(ElCollapseTransition.name, ElCollapseTransition);
+app.component(ElCarousel.name, ElCarousel);
+app.component(ElCarouselItem.name, ElCarouselItem);
+app.component(ElUpload.name, ElUpload);
+app.component(ElImageViewer.name, ElImageViewer);
+app.component(ElImage.name, ElImage);
 
 app.config.globalProperties.$message = ElMessage;
 app.config.globalProperties.$loading = ElLoading.service;

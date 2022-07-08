@@ -24,17 +24,12 @@
               mode="horizontal"
               @select="handleSelect"
             >
-                
-              <el-menu-item :route="state.list[0].path" :index="state.list[0].index" :key="state.list[0].index">{{state.list[0].name}}</el-menu-item>
 
+<!--
+              <el-menu-item :route="state.list[0].path" :index="state.list[0].index" :key="state.list[0].index">{{state.list[0].name}}</el-menu-item>
               <el-dropdown style="height:100%" :class="['el-menu-item', {'is-active': $route.name === state.list[1].key ||  $route.name === state.list[2].key }]">
                 <span class="el-dropdown-link ">
-                    水电费
-                    <!--
-                <el-icon class="el-icon--right">
-                    <arrow-down />
-                </el-icon>
-                -->
+                    AI Painting
                 </span>
                 <template #dropdown>
                 <el-dropdown-menu>
@@ -45,7 +40,8 @@
               </el-dropdown>
   
               <el-menu-item :route="state.list[3].path" :index="state.list[3].index" :key="state.list[3].index">{{state.list[3].name}}</el-menu-item>
-              <!--
+-->
+
               <el-menu-item
                 :route="l.path"
                 :index="l.index"
@@ -54,7 +50,7 @@
               >
                 {{l.name}}
               </el-menu-item>
-              -->
+              
             </el-menu>
           </el-col>
           <!-- 
@@ -290,15 +286,9 @@ export default defineComponent({
         },
         {
           index: "3",
-          path: "/about",
-          name: "sub ai painting",
-          key:"about",
-        },
-        {
-          index: "4",
-          path: "/about",
-          name: "sub ai painting2",
-          key:"about",
+          path: "/painting",
+          name: "Ai Painting",
+          key:"painting",
         },
         // {
         //   index: "3",
