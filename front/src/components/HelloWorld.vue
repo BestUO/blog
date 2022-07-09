@@ -1,7 +1,7 @@
 <template>
   <img
     alt="Vue logo"
-    src="../assets/logo.png"
+    src="../assets/userLogo.jpeg"
   />
   <h1>{{ msg }}</h1>
   <!-- <button @click="inCrement"> count is: </button> -->

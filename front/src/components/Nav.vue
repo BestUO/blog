@@ -66,7 +66,7 @@
                 <img
                   v-if="!userInfo.avatar"
                   class="user-img"
-                  src="../assets/user.png"
+                  src="../assets/userLogo.jpeg"
                   alt="BiaoChenXuYing"
                 >
                 <img

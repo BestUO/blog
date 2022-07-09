@@ -13,7 +13,6 @@
               <img
                 class="auth-logo"
                 src="../assets/userLogo.jpeg"
-                alt="BiaoChenXuYing"
               >
             </div>
             <div class="info">

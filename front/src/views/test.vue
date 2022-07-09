@@ -2,16 +2,16 @@
     <div class="demo-body">
         <div class="showdemo">
             <el-carousel :interval="4000" type="card" height="300px">
-                <el-carousel-item v-for="item in 6" :key="item">
-                    <h3 text="2xl" justify="center"></h3>
+                <el-carousel-item v-for="(item, index) in state.showimagelist" :key="index" style="height: 300px;">
+                    <el-image class="ad-image"  :src="item" fit="contain"></el-image>
                 </el-carousel-item>
             </el-carousel>
         </div>
         <div class = "StyleTransfer">
-            <div v-for="i in state.styletransfertype.length" :key="i" class="upload-content">
+            <div style="margin:30px;" v-for="i in state.styletransfertype.length" :key="i" class="upload-content">
                 <div class="h2">{{state.styletransfertype[i-1].name}}</div>
                 <div class="content">{{state.styletransfertype[i-1].desc}}</div>
-                <div style="display: flex;">
+                <div style="display: flex; align-items: center;">
                     <el-upload
                         class="upload-demo"
                         drag
@@ -36,12 +36,12 @@
                             </div>
                             
                             <div class="el-upload__tip">
-                                jpeg/jpg/png files with a size less than 500kb
+                                jpeg/jpg/png files with a size less than 2M
                             </div>
                         </div>
                         
                     </el-upload>
-                    <el-image style="height : 90px;" src="../../public/img/add.svg" fit="contain" />
+                    <el-image class="add-image" src="../../public/img/add.svg" fit="contain" />
                     <el-upload
                         class="upload-demo"
                         drag
@@ -66,15 +66,18 @@
                             </div>
                             
                             <div class="el-upload__tip">
-                                jpeg/jpg/png files with a size less than 500kb
+                                jpeg/jpg/png files with a size less than 2M
                             </div>
                         </div>
                     </el-upload>
+                    <div class="generate-image">
+                        <el-image @click="handleMouseClick(i-1)" src="../../public/img/equal.svg" fit="contain"/>
+                    </div>
+                    <div>
+                        <el-image style="cursor : pointer; height : 180px;width: 236px;" :src="state.styletransfertype[i-1].resulturl" :preview-src-list="[state.styletransfertype[i-1].resulturl]" :initial-index="0" fit="contain" />
+                    </div>
                 </div>
-                <div style="height : 200px;">
-                    <el-image style="cursor : pointer;" @mousedown="handleMouseDown(i-1)" @mouseup="handleMouseUp(i-1)" @mouseleave="handleMouseLeave(i-1)" :src="state.styletransfertype[i-1].downarrow" fit="contain"/>
-                </div>
-                <div style="margin-bottom:30px;"><el-image :src="state.styletransfertype[i-1].resulturl" :preview-src-list="srcList" :initial-index="0" fit="contain" /></div>
+                
             </div>
         </div>
     </div>
@@ -85,8 +88,7 @@ import { defineComponent, reactive} from "vue";
 import { ElMessage } from "element-plus";
 import service from "../utils/https";
 import urls from "../utils/urls";
-const srcList = [
-  'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg']
+
 export default defineComponent({
     name: 'test',
     setup(props, context) {
@@ -95,25 +97,29 @@ export default defineComponent({
             urls: urls,
             styletransfertype: [
             {
-                downarrow: "../../public/img/downarrow.svg",
                 name: "styletransfer1标题",
                 desc: "styletransfer1简单介绍",
                 params:{functionname:"StyleTransfer_WCT", 
                         alpha:1,
-                        sourceimgurl:"http://124.223.100.95:9999/img/aae6f4fbacd61507c11794cb3d3215c2.jpg",
-                        styleimgurl:"http://124.223.100.95:9999/img/c9aefd196664b49e25c90a57724d8f7f.jpg"},
-                resulturl:"http://124.223.100.95:9999/img/6b9ed12ddd1cb45f2c7e39d4ff13ff85_result.jpg",
+                        sourceimgurl:"http://124.223.100.95:9999/img/bde12f4656700699769080539eb4a37a.jpg",
+                        styleimgurl:"http://124.223.100.95:9999/img/29b3cef9806e9fb942f47a3bc699e5fa.jpg"},
+                resulturl:"http://124.223.100.95:9999/img/b34b152f05783586159be42e94382045_result.jpg",
             },
             {
-                downarrow: "../../public/img/downarrow.svg",
                 name: "styletransfer2标题",
                 desc: "styletransfer2简单介绍",
                 params:{functionname:"StyleTransfer_AdaIN",
                         alpha:1,
-                        sourceimgurl:"",
-                        styleimgurl:""},
-                resulturl:"",
+                        sourceimgurl:"http://124.223.100.95:9999/img/22cbb859c931c7e3b109278ee04005df.jpg",
+                        styleimgurl:"http://124.223.100.95:9999/img/1af05afaaf4254f6bc20cacd4abbab6e.jpg"},
+                resulturl:"http://124.223.100.95:9999/img/bce7ba058650a6f961bc5920f9994de0_result.jpg",
             }
+            ],
+            showimagelist: [
+                "../../public/img/5ea53e0ee5178018ccb5df95ec05affb_result.jpg",
+                "../../public/img/5833d4171206d28bd37050011c8dc0be_result.jpg",
+                "../../public/img/6a0a92a0872bb8ac4ccebb7b2121341d_result.jpg",
+                "../../public/img/bb637ee9851ef88534a9d078b0d2150e_result.jpg"
             ]
         })
         const handleSuccess = (response, file, fileList, index, key) => {
@@ -132,33 +138,22 @@ export default defineComponent({
             }
         };
 
-        const handleMouseDown = (index) => {
-            state.styletransfertype[index].downarrow = "../../public/img/smalldownarrow.svg"
-        };
-
-        const handleMouseUp = async (index) => {
+        const handleMouseClick = async (index) => {
             if(!state.styletransfertype[index].params.styleimgurl || !state.styletransfertype[index].params.sourceimgurl) {
                 ElMessage.error("请上传原始图片和风格图片")
                 return
             }
-            state.styletransfertype[index].downarrow = "../../public/img/downarrow.svg"
             state.styletransfertype[index].resulturl= "../../public/img/loading2.gif"
             service.post(urls.styletransfer, state.styletransfertype[index].params).then(response =>{
                 state.styletransfertype[index].resulturl = response
             });
         };
 
-        const handleMouseLeave = async (index) => {
-            state.styletransfertype[index].downarrow = "../../public/img/downarrow.svg"
-        };
-
         return {
             state,
             handleSuccess,
             beforeUpload,
-            handleMouseDown,
-            handleMouseUp,
-            handleMouseLeave
+            handleMouseClick
         };
     }
 })
@@ -181,11 +176,11 @@ export default defineComponent({
 }
 
 .el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
+  background-color: #ffffff;
 }
 
 .el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
+ background-color: #ffffff;
 }
 .demo-body {
     width: 100%;
@@ -274,6 +269,33 @@ export default defineComponent({
         top: 5px;
         color: white;
         background-color: rgba( #dedede, 0.5);
+    }
+}
+.add-image {
+    //color: #dedede;
+}
+.generate-image {
+    cursor: pointer;
+    width: 80px;
+    text-align: center;
+    &:hover .el-image {
+        height: 80px;
+    }
+
+}
+.el-image .el-image__error {
+    min-width: 236px !important;
+}
+.ad-image {
+    width: 100%;
+    height: 100%;
+}
+.el-carousel__item  {
+    //border: 1px solid #dedede;
+    //border-radius:10px;
+    overflow: hidden;
+    &:not-child(2n+1) {
+        //background-color: rgba(#fff, 0.0);
     }
 }
 </style>

@@ -14,7 +14,7 @@
           <div class="avatar">
             <img
               v-if="item.user.avatar.length < 10"
-              src="../assets/user.png"
+              src="../assets/userLogo.jpeg"
               alt="默认图片"
             >
             <img
@@ -53,7 +53,7 @@
             <div class="avatar">
               <img
                 v-if="e.user.avatar.length < 10"
-                src="../assets/user.png"
+                src="../assets/userLogo.jpeg"
                 alt="默认图片"
               >
               <img
