@@ -6,15 +6,6 @@
     >
       <div class="nav-content">
         <el-row :gutter="20">
-          <!-- <el-col :span="3">
-            <router-link to="/">
-              <img
-                class="logo"
-                src="../assets/userLogo.jpeg"
-                alt="BiaoChenXuYing"
-              >
-            </router-link>
-          </el-col> -->
           <el-col :span="16">
             <el-menu
               :router="true"
@@ -24,24 +15,6 @@
               mode="horizontal"
               @select="handleSelect"
             >
-
-<!--
-              <el-menu-item :route="state.list[0].path" :index="state.list[0].index" :key="state.list[0].index">{{state.list[0].name}}</el-menu-item>
-              <el-dropdown style="height:100%" :class="['el-menu-item', {'is-active': $route.name === state.list[1].key ||  $route.name === state.list[2].key }]">
-                <span class="el-dropdown-link ">
-                    AI Painting
-                </span>
-                <template #dropdown>
-                <el-dropdown-menu>
-                    <el-dropdown-item><router-link :to="state.list[1].path">{{state.list[1].name}}</router-link></el-dropdown-item>
-                    <el-dropdown-item><router-link :to="state.list[2].path">{{state.list[2].name}}</router-link></el-dropdown-item>
-                </el-dropdown-menu>
-                </template>
-              </el-dropdown>
-  
-              <el-menu-item :route="state.list[3].path" :index="state.list[3].index" :key="state.list[3].index">{{state.list[3].name}}</el-menu-item>
--->
-
               <el-menu-item
                 :route="l.path"
                 :index="l.index"
@@ -50,54 +23,11 @@
               >
                 {{l.name}}
               </el-menu-item>
-              
             </el-menu>
+
+            
+
           </el-col>
-          <!-- 
-          <el-col
-            v-if="userInfo._id"
-            :span="5"
-          >
-            <div class="nav-right">
-              <el-dropdown @command="handleLogout">
-                <span class="el-dropdown-link">
-                  {{userInfo.name}}<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <img
-                  v-if="!userInfo.avatar"
-                  class="user-img"
-                  src="../assets/userLogo.jpeg"
-                  alt="BiaoChenXuYing"
-                >
-                <img
-                  v-if="userInfo.avatar"
-                  class="user-img"
-                  :src="userInfo.avatar"
-                  alt="BiaoChenXuYing"
-                >
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="logout">登 出</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div>
-          </el-col>
-          <el-col
-            v-else
-            :span="4"
-          >
-            <div class="nav-right">
-              <el-button
-                size="small"
-                type="primary"
-                @click="handleClick('login')"
-              >登录</el-button>
-              <el-button
-                size="small"
-                type="danger"
-                @click="handleClick('register')"
-              >注册</el-button>
-            </div>
-          </el-col> -->
         </el-row>
       </div>
     </div>
@@ -138,57 +68,12 @@
           >
             <router-link to="/articles">文 章</router-link>
           </div>
-          <!-- <div
-            @click="handleClickMenu('/archive')"
-            class="item"
-          >
-            <router-link to="/archive">归 档</router-link>
-          </div>
-          <div
-            @click="handleClickMenu('/project')"
-            class="item"
-          >
-            <router-link to="/project">项 目</router-link>
-          </div>
-          <div
-            @click="handleClickMenu('/timeline')"
-            class="item"
-          >
-            <router-link to="/timeline">历 程</router-link>
-          </div>
-          <div
-            @click="handleClickMenu('/message')"
-            class="item"
-          >
-            <router-link to="/message">留 言</router-link>
-          </div> -->
          <div
             @click="handleClickMenu('/about')"
             class="item"
           >
             <router-link to="/about">关 于</router-link>
           </div>
-          <!-- <div
-            @click="handleClickMenu('/login')"
-            class="item"
-          >
-            <span v-if="userInfo._id">{{ userInfo.name }}</span>
-            <span v-else>登 录</span>
-          </div>
-          <div
-            v-if="!userInfo._id"
-            @click="handleClickMenu('/register')"
-            class="item"
-          >
-            注 册
-          </div>
-          <div
-            v-if="userInfo._id"
-            @click="handleClickMenu('/logout')"
-            class="item"
-          >
-            登 出
-          </div> -->
         </div>
       </div>
     </div>
@@ -198,13 +83,6 @@
       :class="{'mask-fade-out': state.leaveSlideDown}"
       @click="handleHideMenu"
     ></div>
-    <!-- <RegisterAndLogin
-      :visible="state.visible"
-      :isMobile="state.isMobile"
-      :handleFlag="state.handleFlag"
-      @ok="handleOk"
-      @cancel="handleCancel"
-    ></RegisterAndLogin> -->
   </div>
 </template>
 

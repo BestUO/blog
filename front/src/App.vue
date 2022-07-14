@@ -1,12 +1,22 @@
 <template>
   <div class="container">
     <Nav v-if="state.isShowNav" />
+    <div class="showdemo">
+        <el-carousel :interval="4000" type="card" height="300px">
+            <el-carousel-item v-for="(item, index) in state.showimagelist" :key="index" style="height: 300px;">
+                <el-image class="ad-image"  :src="item" fit="contain"></el-image>
+            </el-carousel-item>
+        </el-carousel>
+    </div>
     <div class="layout">
-      <router-view />
-      <CustomSlider v-if="state.isShowSlider"></CustomSlider>
+      <div class="layout-body">
+        <router-view />
+        <CustomSlider v-if="state.isShowSlider"></CustomSlider>
+      </div>  
+      <Footer v-if="state.isShowNav"></Footer>
     </div>
     <!--<ArrowUp></ArrowUp>-->
-    <Footer v-if="isShowNav"></Footer>
+    <!--<Footer v-if="state.isShowNav"></Footer>-->
   </div>
 </template>
 
@@ -43,6 +53,12 @@ export default defineComponent({
     const state = reactive({
       isShowNav: false,
       isShowSlider: false,
+      showimagelist: [
+        "../../public/img/static/5ea53e0ee5178018ccb5df95ec05affb_result.jpg",
+        "../../public/img/static/5833d4171206d28bd37050011c8dc0be_result.jpg",
+        "../../public/img/static/6a0a92a0872bb8ac4ccebb7b2121341d_result.jpg",
+        "../../public/img/static/bb637ee9851ef88534a9d078b0d2150e_result.jpg"
+    ]
     });
 
     // const router = useRouter();
@@ -50,6 +66,7 @@ export default defineComponent({
 
     const routeChange = (val: any, oldVal: any): void => {
       const referrer: any = document.getElementById("referrer");
+      
       if (val.path === "/") {
         state.isShowNav = false;
         referrer.setAttribute("content", "always");
@@ -79,12 +96,6 @@ export default defineComponent({
         routeChange(route, route);
     })
 
-    // onBeforeRouteUpdate((to: any, from: any) => {
-    //     console.log(to, "=====");
-    //     console.log(from, "=====");
-    //     routeChange(to, from);
-    // });
-
     return {
       state,
       routeChange,
@@ -108,5 +119,38 @@ export default defineComponent({
 }
 img {
   vertical-align: bottom;
+}
+.showdemo {
+    width: 100%;
+    margin: 0px auto;
+}
+.el-carousel .el-carousel--horizontal .el-carousel--card {
+    position: absolute;
+    display: flex;
+    width: 750px;
+    height: 330px;
+    margin: 0 auto;
+}
+.el-carousel__item h3 {
+  color: #475669;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
+  text-align: center;
+}
+.el-carousel__item  {
+    //border: 1px solid #dedede;
+    //border-radius:10px;
+    overflow: hidden;
+    &:not-child(2n+1) {
+        //background-color: rgba(#fff, 0.0);
+    }
+}
+.ad-image {
+    width: 100%;
+    height: 100%;
+}
+.el-image .el-image__error {
+    min-width: 236px !important;
 }
 </style>

@@ -43,8 +43,8 @@
         </li>
       </transition-group>
     </ul>
-    <!--<LoadingCustom v-if="state.isLoading"></LoadingCustom>-->
-    <LoadEnd v-if="state.isLoadEnd" style='width: calc(100% + 350px);'></LoadEnd>
+    <!--<LoadingCustom v-if="state.isLoading"></LoadingCustom>
+    <LoadEnd v-if="state.isLoadEnd" style='width: calc(100% + 350px);'></LoadEnd>-->
   </div>
 </template>
 

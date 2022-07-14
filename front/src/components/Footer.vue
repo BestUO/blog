@@ -2,10 +2,9 @@
 <template>
   <div class="footer">
     <!-- <div>全栈修炼 ©2018 Created by BiaoChenXuYing</div> -->
-    <div class="number">
-        苏ICP备2021034228号-1 11111111111111苏ICP备2021034228号-2
-      >
-    </div>
+
+        苏ICP备2021034228号-1 苏ICP备2021034228号-2
+
   </div>
 </template>
 <script lang="ts">
@@ -20,7 +19,7 @@ export default defineComponent({
   text-align: center;
   /*padding: 20px;
   font-weight: bold;*/
-  position:absolute;
+  font-size: 12px;
   right:0;
   bottom:0;
   width:100%;

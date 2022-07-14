@@ -30,7 +30,10 @@ import {
     ElCarouselItem,
     ElUpload,
     ElImageViewer,
-    ElImage
+    ElImage,
+    ElLink,
+    ElSelect,
+    ElOption
 } from 'element-plus';
 
 const app = createApp(App)
@@ -60,6 +63,9 @@ app.component(ElCarouselItem.name, ElCarouselItem);
 app.component(ElUpload.name, ElUpload);
 app.component(ElImageViewer.name, ElImageViewer);
 app.component(ElImage.name, ElImage);
+app.component(ElLink.name, ElLink);
+app.component(ElSelect.name, ElSelect);
+app.component(ElOption.name, ElOption);
 
 app.config.globalProperties.$message = ElMessage;
 app.config.globalProperties.$loading = ElLoading.service;

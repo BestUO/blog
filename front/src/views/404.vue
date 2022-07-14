@@ -3,7 +3,7 @@
         <body>
             <div class="inner">
             <p>
-                <img src="/public/img/404.png" alt="404" width="456" height="149">
+                <img src="/public/img/static/404.png" alt="404" width="456" height="149">
             </p>
             <h1>That page doesn't exist.</h1>
             <p>
