@@ -3,22 +3,24 @@
     {
         "ip":"0.0.0.0",
         "ext-ip":"127.0.0.1",
-        "port":9999
+        "port":5555
     },
     "mysql":
     {
         "host": "127.0.0.1",
-        "port": 3306,
+        "port": 33506,
         "user": "root",
-        "passwd": "p@ssw0rd_UO",
+        "passwd": "123456",
         "database": "blog",
         "charset": "utf8"
     },
     "redis":
     {
         "host": "127.0.0.1",
-        "port": 10000,
-        "passwd": "123456"
+        "port": 9950,
+        "passwd": "12343"
     },
-    "blog_dir":"D:\\"
+    "blog_dir":"./bloghtml/",
+    "img_dir":"./public/img/",
+    "voice_dir":"./public/voice/"
 }

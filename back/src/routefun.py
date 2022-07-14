@@ -130,31 +130,53 @@ class CustomRoute:
         return articleinfo
 
     @staticmethod
-    def GetPicture(filename):
-        file_path = "./public/img/" + filename
+    def GetFileRes(file_path,suffix):
         if request.method == 'GET':
-            if filename is None or not os.path.isfile(file_path):
+            if not os.path.isfile(file_path):
                 image_data = "No FileName"
             else:
-                image_data = open(file_path, "rb").read()
+                with open(file_path, "rb") as f:
+                    image_data = f.read()
         else:
             image_data = "Need GET Request"
         res = make_response(image_data) # 设置响应体
         res.status = '200' # 设置状态码
         res.headers['Access-Control-Allow-Origin'] = '*'
-        res.headers['Content-Type'] = 'image/' + filename.split('.')[-1]
+        res.headers['Content-Type'] = 'image/' + suffix
         return res
+
+    @staticmethod
+    def GetPicture(filename):
+        file_path = Global.config["img_dir"] + filename
+        suffix = filename.split('.')[-1]
+        return CustomRoute.GetFileRes(file_path, suffix)
+
+    @staticmethod
+    def GetDatePicture(date, filename):
+        file_path = Global.config["img_dir"] + date + "/" + filename
+        suffix = filename.split('.')[-1]
+        return CustomRoute.GetFileRes(file_path, suffix)
+
+    @staticmethod
+    def MkdirByDay():
+        datedir = time.strftime("%Y%m%d",time.localtime()) + "/"
+        filedir = Global.config["img_dir"] + datedir
+        os.makedirs(filedir,exist_ok=True)
+        return datedir
 
     @staticmethod
     @ParseRequestOptionsDecorator
     @cross_origin()
     def upload(param, *args, **kwargs):
         img = param['file']
-
-        path = "./public/img/"
         file_bytes = img.read()
-        imgName = hashlib.md5(file_bytes).hexdigest()+"."+ img.filename.split(".")[-1]
-        file_path = path+imgName
+        imgName = CustomRoute.MkdirByDay()
+        if(param.get("filename")):
+            imgName += param.get("filename")
+        else:
+            imgName += hashlib.md5(file_bytes).hexdigest()+"."+ img.filename.split(".")[-1]
+
+        file_path = Global.config["img_dir"] + imgName
         if(not os.path.exists(file_path)):
             file_path_tmp = file_path +".tmp"
             with open(file_path_tmp,"wb") as file:
@@ -170,24 +192,49 @@ class CustomRoute:
         return ResponseData
 
     @staticmethod
-    @ParseRequestOptionsDecorator
-    @cross_origin()
-    def StyleTransfer(param, *args, **kwargs):
+    def StyleTransfer_WCT_AdaIN(param):
         functionname = param["functionname"]
         alpha = str(param["alpha"])
         sourceimgname = param["sourceimgurl"].split("/")[-1]
         styleimgname = param["styleimgurl"].split("/")[-1]
         uuid = hashlib.md5((functionname+alpha+sourceimgname+styleimgname).encode('utf-8')).hexdigest()
-        resultimgname = uuid +".jpg"
-        if(not os.path.exists(resultimgname)):
+        resultimgname = CustomRoute.MkdirByDay() + uuid +"_result.jpg"
+        if(not os.path.exists(Global.config["img_dir"] + resultimgname)):
             element = "{uuid}-{functionname}-{sourceimgurl}#{styleimgurl}#{alpha}".format(
                 uuid=uuid,functionname=functionname,sourceimgurl=param["sourceimgurl"],styleimgurl=param["styleimgurl"],alpha=alpha)
             rclient = redis.Redis(host=Global.config["redis"]["host"], port=Global.config["redis"]["port"], password=Global.config["redis"]["passwd"], db=0)
-            ppp = rclient.rpush(functionname,element)
+            rclient.rpush(functionname,element)
+        return resultimgname
+
+    @staticmethod
+    def StyleTransfer_Fast(param):
+        functionname = param["functionname"]
+        sourceimgname = param["sourceimgurl"].split("/")[-1]
+        faststyle = param["faststyle"]
+        uuid = hashlib.md5((functionname+sourceimgname+faststyle).encode('utf-8')).hexdigest()
+        resultimgname = CustomRoute.MkdirByDay() + uuid +"_result.jpg"
+        if(not os.path.exists(Global.config["img_dir"] + resultimgname)):
+            element = "{uuid}-{functionname}-{sourceimgurl}#{faststyle}".format(
+                uuid=uuid,functionname=functionname,sourceimgurl=param["sourceimgurl"],faststyle=faststyle)
+            rclient = redis.Redis(host=Global.config["redis"]["host"], port=Global.config["redis"]["port"], password=Global.config["redis"]["passwd"], db=0)
+            rclient.rpush(functionname,element)
+        return resultimgname
+
+    @staticmethod
+    @ParseRequestOptionsDecorator
+    @cross_origin()
+    def StyleTransfer(param, *args, **kwargs):
+        functionname = param["functionname"]
+        if(functionname == "StyleTransfer_WCT" or functionname == "StyleTransfer_AdaIN"):
+            resultimgname = CustomRoute.StyleTransfer_WCT_AdaIN(param)
+        elif(functionname == "StyleTransfer_Fast"):
+            resultimgname = CustomRoute.StyleTransfer_Fast(param)
+        else:
+            return {"code":0,"data":"no functionname","message":"OK"}
 
         timewait=60
         while(timewait>0):
-            if(os.path.exists(resultimgname)):
+            if(os.path.exists(Global.config["img_dir"] + resultimgname)):
                 break
             time.sleep(2)
             timewait -=2
