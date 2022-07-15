@@ -1,6 +1,7 @@
 <template>
     <div class="demo-body">
         <div class = "StyleTransfer">
+            <div class="attention">!!!注意!!!以下模型均由CPU训练生成，速度较慢。请耐心等待图片合成结果。</div>
             <div style="margin:30px;" v-for="i in state.styletransfertype.length" :key="i" class="upload-content">
                 <div v-html="state.styletransfertype[i-1].desc"></div>
                 <div style="display: flex; align-items: center;">
@@ -18,8 +19,8 @@
                         :show-file-list="false"
                     >
                         <div v-if="state.styletransfertype[i-1].params.sourceimgurl" class="el-upload-image">
-                        <el-image  :src="state.styletransfertype[i-1].params.sourceimgurl" fit="contain" ></el-image>
-                        <span class="close" @click.prevent.stop="state.styletransfertype[i-1].params.sourceimgurl=null">X</span>
+                            <el-image  :src="state.styletransfertype[i-1].params.sourceimgurl" fit="contain" ></el-image>
+                            <span class="close" @click.prevent.stop="state.styletransfertype[i-1].params.sourceimgurl=null">X</span>
                         </div>
                     
                         <div v-else class="el-upload_empty-views">
@@ -33,7 +34,7 @@
                         </div>
                         
                     </el-upload>
-                    <el-image class="add-image" src="../../public/img/static/add.svg" fit="contain" />
+                    <el-image class="add-image" src="/img/static/add.svg" fit="contain" />
                     <div>
                         <el-upload 
                             v-if="state.styletransfertype[i-1].name != 'StyleTransfer_Fast'"
@@ -81,7 +82,7 @@
                         </div>
                     </div>
                     <div class="generate-image">
-                        <el-image @click="handleMouseClick(i-1)" src="../../public/img/static/equal.svg" fit="contain"/>
+                        <el-image @click="handleMouseClick(i-1)" src="/img/static/equal.svg" fit="contain"/>
                     </div>
                     <div>
                         <el-image style="cursor : pointer; height : 180px;width: 236px;" :src="state.styletransfertype[i-1].resulturl" :preview-src-list="[state.styletransfertype[i-1].resulturl]" fit="contain" />
@@ -106,6 +107,7 @@ export default defineComponent({
         Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization,Perceptual Losses for Real-Time Style Transfer and Super-Resolution");
         document.querySelector("#description").setAttribute("content", "使用特定模型实现快速风格迁移，使用WCT和Adain方法实现快速风格迁移");
         const state = reactive({
+            publicPath: process.env.BASE_URL,
             service: service,
             urls: urls,
             styletransfertype: [
@@ -144,11 +146,11 @@ export default defineComponent({
                         faststyle:"faststyle3"},
                 resulturl:"http://124.223.100.95:9999/img/20220710/18b0cb426dc304c163d56ab31467c5af_result.jpg",
                 faststyles:[
-                    {"label":"faststyle1","value":"../../public/img/static/1.jpg"},
-                    {"label":"faststyle2","value":"../../public/img/static/2.jpg"},
-                    {"label":"faststyle3","value":"../../public/img/static/3.jpeg"},
-                    {"label":"faststyle4","value":"../../public/img/static/4.jpg"},
-                    {"label":"faststyle5","value":"../../public/img/static/5.jpg"},
+                    {"label":"faststyle1","value":"/img/static/1.jpg"},
+                    {"label":"faststyle2","value":"/img/static/2.jpg"},
+                    {"label":"faststyle3","value":"/img/static/3.jpeg"},
+                    {"label":"faststyle4","value":"/img/static/4.jpg"},
+                    {"label":"faststyle5","value":"/img/static/5.jpg"},
                 ],
                 selectimage: '2',
                 styleimgurl: 'http://124.223.100.95:9999/img/20220710/18b0cb426dc304c163d56ab31467c5af_result.jpg',
@@ -183,7 +185,7 @@ export default defineComponent({
                     return
                 }
             }
-            state.styletransfertype[index].resulturl= "../../public/img/static/loading2.gif"
+            state.styletransfertype[index].resulturl= "/img/static/loading2.gif"
             service.post(urls.styletransfer, state.styletransfertype[index].params).then(response =>{
                 state.styletransfertype[index].resulturl = response
             });
@@ -256,6 +258,27 @@ export default defineComponent({
     margin-inline-start: 0px;
     margin-top: 0px;
     overflow-wrap: break-word;
+    text-align: left;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+.attention{
+    box-sizing: border-box;
+    color: rgb(255, 0, 0);
+    display: block;
+    font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 34.3px;
+    margin-block-end: 15px;
+    margin-block-start: 15px;
+    margin-bottom: 15px;
+    margin-inline-end: 0px;
+    margin-inline-start: 0px;
+    margin-top: 15px;
+    overflow-wrap: break-word;
+    padding-bottom: 8.4px;
     text-align: left;
     text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;

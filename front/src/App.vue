@@ -4,7 +4,7 @@
     <div class="showdemo">
         <el-carousel :interval="4000" type="card" height="300px">
             <el-carousel-item v-for="(item, index) in state.showimagelist" :key="index" style="height: 300px;">
-                <el-image class="ad-image"  :src="item" fit="contain"></el-image>
+                <el-image class="ad-image"  :src="`${item}`" fit="contain"></el-image>
             </el-carousel-item>
         </el-carousel>
     </div>
@@ -51,13 +51,14 @@ export default defineComponent({
   },
   setup() {
     const state = reactive({
+      publicPath: process.env.BASE_URL,
       isShowNav: false,
       isShowSlider: false,
       showimagelist: [
-        "../../public/img/static/5ea53e0ee5178018ccb5df95ec05affb_result.jpg",
-        "../../public/img/static/5833d4171206d28bd37050011c8dc0be_result.jpg",
-        "../../public/img/static/6a0a92a0872bb8ac4ccebb7b2121341d_result.jpg",
-        "../../public/img/static/bb637ee9851ef88534a9d078b0d2150e_result.jpg"
+        "/img/static/5ea53e0ee5178018ccb5df95ec05affb_result.jpg",
+        "/img/static/5833d4171206d28bd37050011c8dc0be_result.jpg",
+        "/img/static/6a0a92a0872bb8ac4ccebb7b2121341d_result.jpg",
+        "/img/static/bb637ee9851ef88534a9d078b0d2150e_result.jpg"
     ]
     });
 

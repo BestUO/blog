@@ -23,7 +23,11 @@ export default defineConfig({
       ]
     })
   ],
-
+  define: {
+    'process.env': {
+        'BASE_URL': 'http://localhost:3001/'
+    }
+  },
   /**
    * 在生产中服务时的基本公共路径。
    * @default '/'
