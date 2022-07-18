@@ -112,34 +112,13 @@ export default defineComponent({
             urls: urls,
             styletransfertype: [
             {
-                name: "StyleTransfer_WCT",
-                desc: "<div class=\"h2\">StyleTransfer_WCT</div>\
-                        <div class=\"content\"><a href=\"https://arxiv.org/abs/1508.06576\">《A Neural Algorithm of Artistic Style》</a>是基于协方差和Gram矩阵的方法能很好的提取视觉风格特征，但缺点是处理时间长。\
-                            而<a href=\"https://arxiv.org/abs/1705.08086\">《Universal Style Transfer via Feature Transforms》</a>则通过白化原始图像，再对白化后的图像彩化并循环多次实现快速风格迁移效果。\
-                        </div>",
-                params:{functionname:"StyleTransfer_WCT", 
-                        alpha:1,
-                        sourceimgurl:"http://124.223.100.95:9999/img/20220710/bde12f4656700699769080539eb4a37a.jpg",
-                        styleimgurl:"http://124.223.100.95:9999/img/20220710/0634a86fb0899a32168c12ffd5eff811.jpg"},
-                resulturl:"http://124.223.100.95:9999/img/20220710/db46073544fa2563c66047e0b67d5da2_result.jpg",
-            },
-            {
-                name: "StyleTransfer_AdaIN",
-                desc: "<div class=\"h2\">StyleTransfer_AdaIN</div>\
-                        <div class=\"content\"><a href=\"https://arxiv.org/abs/1703.06868\">《Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization》<\a>\
-                            提出使用风格照片特征空间的均值和方差对原始照片特征空间进行转换，当两者的特征空间对齐时则认为风格相似。\
-                        </div>",
-                params:{functionname:"StyleTransfer_AdaIN",
-                        alpha:1,
-                        sourceimgurl:"http://124.223.100.95:9999/img/20220710/22cbb859c931c7e3b109278ee04005df.jpg",
-                        styleimgurl:"http://124.223.100.95:9999/img/20220710/3aae758bab2f44a087b4de590e4d1755.jpg"},
-                resulturl:"http://124.223.100.95:9999/img/20220710/818fc5ba7817a1f2743b76f2a1798d87_result.jpg",
-            },
-            {
                 name: "StyleTransfer_Fast",
                 desc: "<div class=\"h2\">StyleTransfer_Fast</div>\
-                        <div class=\"content\"><a href=\"https://arxiv.org/abs/1603.08155\">《Perceptual Losses for Real-Time Style Transfer and Super-Resolution》<\a>\
+                        <div class=\"content\"><a href=\"https://arxiv.org/abs/1603.08155\" target=\"_blank\">《Perceptual Losses for Real-Time Style Transfer and Super-Resolution》<\a>\
                             提出使用TransformerNet转换原始图片，转换后的图片通过vgg16提取特征，如果特征与风格图片的特征空间相似，则认为风格相同。因为TransformerNet是预训练网络，所以使用该方法进行风格转换较快。\
+                            <div class=\"content\">\
+                                以下图片分别为：西瓦里·康定斯基Composition VII、李奥尼德·阿夫列莫夫MYSTERIOUS RAIN PRINCESS、威廉透納The Wreck of a Transport Ship、风格迁移mosaic模型、梵高The Starry Night\
+                            </div>\
                         </div>",
                 params:{functionname:"StyleTransfer_Fast",
                         sourceimgurl:"http://124.223.100.95:9999/img/20220710/20f336afe77cd89351a54541080950dd.jpg",
@@ -153,7 +132,31 @@ export default defineComponent({
                     {"label":"faststyle5","value":"/img/static/5.jpg"},
                 ],
                 selectimage: '2',
-                styleimgurl: 'http://124.223.100.95:9999/img/20220710/18b0cb426dc304c163d56ab31467c5af_result.jpg',
+                styleimgurl: '/img/static/3.jpeg',
+            },
+            {
+                name: "StyleTransfer_WCT",
+                desc: "<div class=\"h2\">StyleTransfer_WCT</div>\
+                        <div class=\"content\"><a href=\"https://arxiv.org/abs/1508.06576\" target=\"_blank\">《A Neural Algorithm of Artistic Style》</a>是基于协方差和Gram矩阵的方法能很好的提取视觉风格特征，但缺点是处理时间长。\
+                            而<a href=\"https://arxiv.org/abs/1705.08086\" target=\"_blank\">《Universal Style Transfer via Feature Transforms》</a>则通过白化原始图像，再对白化后的图像彩化并循环多次实现快速风格迁移效果。\
+                        </div>",
+                params:{functionname:"StyleTransfer_WCT", 
+                        alpha:1,
+                        sourceimgurl:"http://124.223.100.95:9999/img/20220710/bde12f4656700699769080539eb4a37a.jpg",
+                        styleimgurl:"http://124.223.100.95:9999/img/20220710/0634a86fb0899a32168c12ffd5eff811.jpg"},
+                resulturl:"http://124.223.100.95:9999/img/20220710/db46073544fa2563c66047e0b67d5da2_result.jpg",
+            },
+            {
+                name: "StyleTransfer_AdaIN",
+                desc: "<div class=\"h2\">StyleTransfer_AdaIN</div>\
+                        <div class=\"content\"><a href=\"https://arxiv.org/abs/1703.06868\" target=\"_blank\">《Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization》<\a>\
+                            提出使用风格照片特征空间的均值和方差对原始照片特征空间进行转换，当两者的特征空间对齐时则认为风格相似。\
+                        </div>",
+                params:{functionname:"StyleTransfer_AdaIN",
+                        alpha:1,
+                        sourceimgurl:"http://124.223.100.95:9999/img/20220710/22cbb859c931c7e3b109278ee04005df.jpg",
+                        styleimgurl:"http://124.223.100.95:9999/img/20220710/3aae758bab2f44a087b4de590e4d1755.jpg"},
+                resulturl:"http://124.223.100.95:9999/img/20220710/818fc5ba7817a1f2743b76f2a1798d87_result.jpg",
             }
             ]
         })
@@ -192,12 +195,11 @@ export default defineComponent({
         };
 
         const changeimage = (val) => {
-            let index = state.styletransfertype[2].selectimage
-            let faststyle = state.styletransfertype[2].faststyles[index].label
-            let image = state.styletransfertype[2].faststyles[index].value
-
-            state.styletransfertype[2].styleimgurl = image
-            state.styletransfertype[2].params.faststyle = faststyle
+            let index = state.styletransfertype[0].selectimage
+            let faststyle = state.styletransfertype[0].faststyles[index].label
+            let image = state.styletransfertype[0].faststyles[index].value
+            state.styletransfertype[0].styleimgurl = image
+            state.styletransfertype[0].params.faststyle = faststyle
         }
 
         return {

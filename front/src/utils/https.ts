@@ -15,13 +15,21 @@ let service: AxiosInstance | any;
 if (import.meta.env.MODE === "development") {
   service = axios.create({
    baseURL: "http://124.223.100.95:9999/api", // api 的 base_url
-    timeout: 120000 // 请求超时时间
+    timeout: 120000, // 请求超时时间
+    headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    },
   });
 } else {
   // 生产环境下
   service = axios.create({
     baseURL: "http://124.223.100.95:9999/api",
-    timeout: 120000
+    timeout: 120000,
+    headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    },
   });
 }
 
