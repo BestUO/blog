@@ -7,8 +7,10 @@ import src.myglobal as Global
 from gevent import pywsgi
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+# from flask_cors import CORS
 
 app = Flask(__name__)
+# CORS(app, resources=r'/*')
 limiter = Limiter(
     app,
     key_func=get_remote_address,   
